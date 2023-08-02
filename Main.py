@@ -14,7 +14,7 @@ Start_font = pygame.font.Font('assest/Font/Pixel Emulator.otf', 35)
 
 Name_game = Font_game.render('NRO', True, (255, 165,0))
 Start_button = Start_font.render('START', True, (255, 255, 255))
-Start_button_rect = pygame.Rect(250, )
+
 
 while True:
     screen.blit(bg, (0,0))
@@ -24,5 +24,11 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            print(pygame.mouse.get_pos())
     
     pygame.display.update()
+    Start_button_rect = Start_button.get_rect()
+    print(Start_button_rect)
+    print(Name_game.get_rect())
+    break
