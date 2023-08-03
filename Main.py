@@ -16,10 +16,10 @@ Name_game = Font_game.render('NRO', True, (255, 165,0))
 Start_button = Start_font.render('START', True, (255, 255, 255))
 
 Start_rect = Start_button.get_rect()
-Start_x = (x - Start_rect.width) // 2
-Start_y = (y - Start_rect.height) // 2
+Start_x = 285 
+Start_y = 200 
 
-rectangle_padding = 10  
+rectangle_padding = 7
 rectangle_width = Start_rect.width + rectangle_padding * 2
 rectangle_height = Start_rect.height + rectangle_padding * 2
 rectangle_x = Start_x - rectangle_padding
@@ -28,14 +28,14 @@ rectangle_y = Start_y - rectangle_padding
 while True:
     screen.blit(bg, (0,0))
     screen.blit(Name_game, (x//2-100, y-300))
-    screen.blit(Start_button, (285 ,190))
+    #screen.blit(Start_button, (285 ,190))
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
         if event.type == pygame.MOUSEBUTTONDOWN:
             print(pygame.mouse.get_pos())
-    pygame.draw.rect(screen, (0, 0, 255), (rectangle_x, rectangle_y, rectangle_width, rectangle_height), 2)
+    pygame.draw.rect(screen, (255, 255, 255), (rectangle_x, rectangle_y, rectangle_width, rectangle_height), 2)
 
     screen.blit(Start_button, (Start_x, Start_y))
     
@@ -43,4 +43,3 @@ while True:
     '''Start_button_rect = Start_button.get_rect()
     print(Start_button_rect)
     print(Name_game.get_rect())'''
-    break
