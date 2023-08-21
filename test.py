@@ -1,18 +1,38 @@
+from typing import Any
 import pygame
 
 pygame.init()
-screen = pygame.display.set_mode((300,300))
-font = pygame.font.Font(None, 28)
-text = font.render("Hello, world!", True, (255, 255, 255))
-text_rect = text.get_rect()
+x, y = 900, 500
+screen = pygame.display.set_mode((x, y))
+def test():
+    class MySf(pygame.sprite.Sprite):
+        def __init__(surface):
+            super().__init__()
+            surface.image = pygame.image.load('assest/RES2/bg/sun13.png')
+            surface.rect = surface.image.get_rect()
+            surface.rect.center = ((x // 3, y // 2))
+        
+        def update(surface, keys):
+            if keys[pygame.K_RIGHT]:
+                surface.rect.x += 1
+            if keys[pygame.K_LEFT]:
+                surface.rect.x += -1
+        
+    
+    Surface = MySf()
+    Gr = pygame.sprite.Group()
+    Gr.add(Surface)
+    return Surface,Gr
+Surface, Gr = test()
 while True:
-    screen.blit(text,(30,30))
-    pygame.display.update()
+    keys = pygame.key.get_pressed()
+    Surface.update(keys)
     for event in pygame.event.get():
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            print(pygame.mouse.get_pos())
-    '''print(text_rect.x)      # Tọa độ x của góc trái trên của hình chữ nhật chứa dòng chữ
-    print(text_rect.y)      # Tọa độ y của góc trái trên của hình chữ nhật chứa dòng chữ
-    print(text_rect.width)  # Chiều rộng của hình chữ nhật chứa dòng chữ
-    print(text_rect.height) # Chiều cao của hình chữ nhật chứa dòng chữ'''
-
+        if event.type == pygame.QUIT:
+            pygame.quit()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if True:
+            screen.fill((0, 0, 0))
+            Gr.draw(screen)
+            
+    pygame.display.flip()
