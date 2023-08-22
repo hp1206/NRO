@@ -73,19 +73,21 @@ def Play():
     
 
 Font_game = pygame.font.Font('assest/Font/thirteen_pixel_fonts.ttf', 112)
-Start_font = pygame.font.Font('assest/Font/Pixel Emulator.otf', 52)
+Start_font = pygame.image.load('assest/Assest Download/start.png')
 quit_button = pygame.image.load('assest/Assest Download/QUIT.png')
-quit_button = pygame.transform.scale(quit_button, (quit_button.get_width()//10, quit_button.get_height()//10))
+quit_button = pygame.transform.scale(quit_button, (quit_button.get_width()//60, quit_button.get_height()//60))
 Name_game = Font_game.render('NRO', True, (255, 165,0))
-Start_button = Start_font.render('START', True, (255, 255, 255))
+Start_button = pygame.transform.scale(Start_font, (Start_font.get_width()//1.5, Start_font.get_height()//1.5))
 Start_x = x//2 - Start_button.get_width()//2 
 Start_y = y//2 - Start_button.get_height()//2 + Start_button.get_height()//2
 Name_game_x = x//2 - Name_game.get_width()//2
 Name_game_y = y//2 - Name_game.get_height()//2 - Name_game.get_height()//2 
+quit_x = x//2 - quit_button.get_width()//2
+quit_y = y//2 - quit_button.get_height()//2 + quit_button.get_height()*2
 Backgound_list.append((bg,(0, 0)))
 Backgound_list.append((Name_game, (Name_game_x, Name_game_y)))
 Backgound_list.append((Start_button, (Start_x, Start_y)))
-Backgound_list.append((quit_button, (10, 10)))
+Backgound_list.append((quit_button, (quit_x, quit_y)))
 my_main_character, all_main = Play()
 while True:
     keys = pygame.key.get_pressed()
@@ -97,12 +99,17 @@ while True:
     rectangle_x = Start_x - rectangle_padding
     rectangle_y = Start_y - rectangle_padding
     Start_rect = pygame.Rect(rectangle_x, rectangle_y, rectangle_width, rectangle_height)
+    quit_rect = pygame.Rect(quit_x, quit_y, quit_button.get_width(), quit_button.get_height())
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
     if not St:
         screen.blits(Backgound_list)
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if quit_rect.collidepoint(pygame.mouse.get_pos()):
+                pygame.quit()
+                sys.exit()
     if event.type == pygame.MOUSEBUTTONDOWN:
         if Start_rect.collidepoint(pygame.mouse.get_pos()) and St == False:
             St = True
