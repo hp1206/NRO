@@ -19,7 +19,7 @@ def Play():
     
     sky_scale = pygame.transform.scale(sky, (x*3, y))
     sky = pygame.transform.scale(sky, (x, y))
-    pause_button = pygame.transform.scale(pause_button, (pause_button.get_width()//10, pause_button.get_height()//10))
+    pause_button = pygame.transform.scale(pause_button, (pause_button.get_width()*3, pause_button.get_height()*3))
     fighting_place_on = pygame.transform.scale(fighting_place_on, (856, 96))
     fighting_place_under = pygame.transform.scale(fighting_place_under, (960, 117))
     fighting_place_on_right = pygame.transform.flip(fighting_place_on, True, False)
@@ -75,15 +75,22 @@ def Play():
 Font_game = pygame.font.Font('assest/Font/thirteen_pixel_fonts.ttf', 112)
 Start_font = pygame.image.load('assest/Assest Download/start.png')
 quit_button = pygame.image.load('assest/Assest Download/QUIT.png')
-quit_button = pygame.transform.scale(quit_button, (quit_button.get_width()//60, quit_button.get_height()//60))
+quit_box = pygame.image.load('assest/Assest Download/duwtq.png')
+yes_button = pygame.image.load('assest/Assest Download/yes.png')
+no_button = pygame.image.load('assest/Assest Download/no.png')
+quit_button = pygame.transform.scale(quit_button, (quit_button.get_width()*7, quit_button.get_height()*7))
+quit_box = pygame.transform.scale(quit_box, (quit_box.get_width()*10, quit_box.get_height()*10))
+yes_button = pygame.transform.scale(yes_button, (yes_button.get_width()*7, yes_button.get_height()*7))
 Name_game = Font_game.render('NRO', True, (255, 165,0))
-Start_button = pygame.transform.scale(Start_font, (Start_font.get_width()//1.5, Start_font.get_height()//1.5))
+Start_button = pygame.transform.scale(Start_font, (Start_font.get_width()*7, Start_font.get_height()*7))
 Start_x = x//2 - Start_button.get_width()//2 
 Start_y = y//2 - Start_button.get_height()//2 + Start_button.get_height()//2
 Name_game_x = x//2 - Name_game.get_width()//2
 Name_game_y = y//2 - Name_game.get_height()//2 - Name_game.get_height()//2 
 quit_x = x//2 - quit_button.get_width()//2
-quit_y = y//2 - quit_button.get_height()//2 + quit_button.get_height()*2
+quit_y = y//2 - quit_button.get_height()//2 + quit_button.get_height()*1.85
+yes_x = quit_box.get_width()//4 + (x - quit_box.get_width())//2 - yes_button.get_width()//2
+yes_y = y - 240
 Backgound_list.append((bg,(0, 0)))
 Backgound_list.append((Name_game, (Name_game_x, Name_game_y)))
 Backgound_list.append((Start_button, (Start_x, Start_y)))
@@ -100,6 +107,7 @@ while True:
     rectangle_y = Start_y - rectangle_padding
     Start_rect = pygame.Rect(rectangle_x, rectangle_y, rectangle_width, rectangle_height)
     quit_rect = pygame.Rect(quit_x, quit_y, quit_button.get_width(), quit_button.get_height())
+    yes_rect = pygame.Rect(yes_x, yes_y, yes_button.get_width(), yes_button.get_height())
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -108,6 +116,11 @@ while True:
         screen.blits(Backgound_list)
         if event.type == pygame.MOUSEBUTTONDOWN:
             if quit_rect.collidepoint(pygame.mouse.get_pos()):
+                Backgound_list.clear()
+                screen.blit(bg, (0, 0))
+                screen.blit(quit_box, (x//2 - quit_box.get_width()//2, y//2 - quit_box.get_height()//2))
+                screen.blit(yes_button, (yes_x, yes_y))
+            if yes_rect.collidepoint(pygame.mouse.get_pos()):
                 pygame.quit()
                 sys.exit()
     if event.type == pygame.MOUSEBUTTONDOWN:
@@ -116,7 +129,7 @@ while True:
     if St == True: 
         Play()
         all_main.draw(screen)
-    #print(pygame.mouse.get_pos())
+    print(pygame.mouse.get_pos())
             
 
 
